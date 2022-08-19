@@ -18,6 +18,7 @@
 #include <QMessageAuthenticationCode>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonValue>
 
 /**
 
@@ -371,13 +372,13 @@ public:
 
 	\brief Convenience method to append a claim to the *payload*.
 	\param strClaimType The claim type as a QString.
-	\param strValue The value type as a QString.
+    \param value The value type as a QJsonValue.
 
 	Both parameters must be non-empty. If the claim type already exists, the current
 	claim value is updated.
 
 	*/
-	void appendClaim(const QString &strClaimType, const QString &strValue);
+    void appendClaim(const QString &strClaimType, const QJsonValue &value);
 
 	/**
 
@@ -398,7 +399,7 @@ public:
 	constructed QString.
 
 	*/
-	QString claim(const QString &strClaimType);
+    QJsonValue claim(const QString &strClaimType);
 
 private:
 	// properties

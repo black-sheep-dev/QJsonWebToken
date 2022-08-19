@@ -296,11 +296,11 @@ QJsonWebToken QJsonWebToken::fromTokenAndSecret(const QString &strToken, const Q
 	return tempTokenObj;
 }
 
-void QJsonWebToken::appendClaim(const QString &strClaimType, const QString &strValue)
+void QJsonWebToken::appendClaim(const QString &strClaimType, const QJsonValue &value)
 {
 	// have to make a copy of the json object, modify the copy and then put it back, sigh
 	QJsonObject jObj = m_jdocPayload.object();
-	jObj.insert(strClaimType, strValue);
+    jObj.insert(strClaimType, value);
 	m_jdocPayload = QJsonDocument(jObj);
 }
 
@@ -312,11 +312,11 @@ void QJsonWebToken::removeClaim(const QString &strClaimType)
 	m_jdocPayload = QJsonDocument(jObj);
 }
 
-QString QJsonWebToken::claim(const QString &strClaimType)
+QJsonValue QJsonWebToken::claim(const QString &strClaimType)
 {
 	QJsonObject jObj = m_jdocPayload.object();
 
-	return jObj[strClaimType].toString();
+    return jObj[strClaimType];
 }
 
 bool QJsonWebToken::isAlgorithmSupported(const QString &strAlgorithm)
